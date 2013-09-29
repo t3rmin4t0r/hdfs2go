@@ -25,7 +25,7 @@ see `go doc`
 Assuming you have HDFS running on localhost:56565
 
 		export CLASSPATH=$(find $HADOOP_HOME -name *.jar | tr \\n : ):$JAVA_HOME/jre/lib/rt.jar 
-		export LD_LIBRARY_PATH="$HADOO_HOME/lib/native/:$JAVA_HOME/jre/lib/amd64/server/" 
+		export LD_LIBRARY_PATH="$HADOOP_HOME/lib/native/:$JAVA_HOME/jre/lib/amd64/server/" 
 		export CGO_CFLAGS="-I/usr/include/ -I$HADOOP_HOME/include" 
 		export CGO_LDFLAGS="-L $HADOOP_HOME/lib/native -L $JAVA_HOME/jre/lib/amd64/server/"
 		go test
