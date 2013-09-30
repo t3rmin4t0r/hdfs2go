@@ -27,6 +27,9 @@ import (
 	"sync"
 	"time"
 	"unsafe"
+	"os"
+	"strings"
+	"path/filepath"
 )
 
 const (
@@ -65,6 +68,23 @@ type FileInfo struct {
 
 type File hdfsFile
 type Fs hdfsFS
+
+func init() {
+	hadoop_home := os.Getenv("HADOOP_HOME")
+	classpath := os.Getenv("CLASSPATH")
+	if(hadoop_home != "") {	
+		var paths []string
+		isjar := func (path string, f os.FileInfo, err error) error {		
+			if(strings.HasSuffix(path, ".jar")) {
+				paths = append(paths, path)
+			}
+			return nil
+		}
+		filepath.Walk(hadoop_home + "/share/hadoop/", isjar)
+		hadoop_classpath :=  strings.Join(paths, ":")
+		os.Setenv("CLASSPATH", classpath + ":" + hadoop_classpath)
+	}
+}
 
 func (info *FileInfo) String() (ret string) {
 	ret = fmt.Sprintf("%-8s\t:  %s\n", "Name", info.Name) +

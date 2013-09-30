@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	server = ""
+	server = "localhost"
 	ssport = 56565
 )
 
